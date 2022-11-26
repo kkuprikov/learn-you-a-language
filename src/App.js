@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <div class="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Type a word or phrase to translate
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <TextField 
+          id="outlined-basic" 
+          label="Input" 
+          variant="outlined" />
+        <Button variant="contained">Process</Button>
+      </div>
+    </ThemeProvider>
   );
 }
 
