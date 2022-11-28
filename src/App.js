@@ -1,8 +1,7 @@
 import './App.css';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Form from './components/Form.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Unstable_Grid2';
 
 const darkTheme = createTheme({
   palette: {
@@ -13,17 +12,18 @@ const darkTheme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div class="App-header">
-        <p>
-          Type a word or phrase to translate
-        </p>
-        <TextField 
-          id="outlined-basic" 
-          label="Input" 
-          variant="outlined" />
-        <Button variant="contained">Process</Button>
-      </div>
+      <Grid container spacing={2}>
+        <Grid xs={6}>
+          <Form/>
+        </Grid>
+        <Grid xs={6}>
+          <div class="Results">
+            <p>
+              Type a word or phrase to translate
+            </p>
+          </div>
+        </Grid>
+      </Grid>
     </ThemeProvider>
   );
 }
