@@ -4,11 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.Form__textarea {
-  resize:  none;
+.Form__textfield {
+  width:  500px;
 }

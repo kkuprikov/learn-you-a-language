@@ -17,7 +17,7 @@ function App() {
           <Form/>
         </Grid>
         <Grid xs={6}>
-          <div class="Results">
+          <div className="Results">
             <p>
               Type a word or phrase to translate
             </p>
