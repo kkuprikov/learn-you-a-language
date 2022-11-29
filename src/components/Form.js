@@ -1,4 +1,5 @@
 import './Form.css'
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
@@ -7,26 +8,29 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-const deeplUrl = "https://api-free.deepl.com/v2/translate"
-const deeplApiKey = process.env.REACT_APP_DEEPL_API_KEY
+const deeplUrl = "https://9f9b-124-122-125-95.ngrok.io/v2/translate"
 
 function Form() {
   const [userData, setUserData] = useState({});
 
-  const requestOptions = {
-        method: 'POST',
-        headers: { 'Authorization': `DeepL-Auth-Key ${deeplApiKey}` },
-        body: JSON.stringify({ 
-          text: 'React POST Request Example',
-          target_lang: 'DE'
-        })
-    };
-
   const getTranslation = async () => {
-    const response = await fetch(deeplUrl, requestOptions);
-    console.log(response)
-    const jsonData = await response.json();
-    setUserData(jsonData);
+    let bodyFormData = new FormData();
+    bodyFormData.append('text', 'React POST Request Example')
+    bodyFormData.append('target_lang', 'DE')
+
+    axios({
+      method: "post",
+      url: deeplUrl,
+      data: bodyFormData,
+    })
+      .then(function (response) {
+        //TODO: substitute output content with transformed response
+        console.log(response);
+      })
+      .catch(function (response) {
+        //TODO: handle error
+        console.log(response);
+      });
   };
 
   return (
