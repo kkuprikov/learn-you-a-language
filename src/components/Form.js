@@ -1,6 +1,6 @@
 import './Form.css'
 import axios from 'axios';
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -8,12 +8,12 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-const deeplUrl = "https://9f9b-124-122-125-95.ngrok.io/v2/translate"
+const deeplUrl = "https://cb90-202-176-124-205.ngrok.io/v2/translate"
 
-function Form() {
-  const [userData, setUserData] = useState({});
+const Form = ({setResult}) => {
+  const [currentLocale, setLocale] = useState('th');
 
-  const getTranslation = async () => {
+  const getTranslation = async (event) => {
     let bodyFormData = new FormData();
     bodyFormData.append('text', 'React POST Request Example')
     bodyFormData.append('target_lang', 'DE')
@@ -24,7 +24,7 @@ function Form() {
       data: bodyFormData,
     })
       .then(function (response) {
-        //TODO: substitute output content with transformed response
+        setResult(response.data)
         console.log(response);
       })
       .catch(function (response) {
@@ -42,7 +42,7 @@ function Form() {
         <InputLabel>Language</InputLabel>
         <Select
           className="Form__select"
-          value={'th'}
+          value={currentLocale}
           label="Select language"
           style={{ width: 300 }}
         >
@@ -61,10 +61,7 @@ function Form() {
       </FormControl>
       <Button 
         variant="contained"
-        onClick={() => {
-          getTranslation()
-
-        }}
+        onClick={getTranslation}
        >Process</Button>
     </div>
   );

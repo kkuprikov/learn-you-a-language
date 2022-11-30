@@ -1,5 +1,7 @@
 import './App.css';
+import {useState} from "react";
 import Form from './components/Form.js';
+import Result from './components/Result/Result.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 
@@ -9,21 +11,14 @@ const darkTheme = createTheme({
   },
 });
 
-function App() {
+
+const App = () => {
+  const [result, setResult] = useState('');
+
   return (
     <ThemeProvider theme={darkTheme}>
-      <Grid container spacing={2}>
-        <Grid xs={6}>
-          <Form/>
-        </Grid>
-        <Grid xs={6}>
-          <div className="Results">
-            <p>
-              Type a word or phrase to translate
-            </p>
-          </div>
-        </Grid>
-      </Grid>
+      <Form setResult={setResult} />
+      <Result result={result}/>
     </ThemeProvider>
   );
 }
