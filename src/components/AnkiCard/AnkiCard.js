@@ -9,31 +9,39 @@ import Typography from '@mui/material/Typography';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-const AnkiCard = ({cardname}) => {
-  return (
-    <>
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <CloseOutlinedIcon />
-            </IconButton>
-          }
-        />
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {cardname}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-        
-      </Card>
-    </Box>
-    </>
-  )
+const AnkiCard = ({cardname, visible, suggestedCards, setSuggestedCards}) => {
+  if (visible) {
+    return (
+      <>
+      <Box sx={{ minWidth: 275 }}>
+        <Card variant="outlined">
+          <CardHeader
+            action={
+              <IconButton aria-label="settings" 
+                onClick={() => {
+                  setSuggestedCards({
+                    ...suggestedCards,
+                    [cardname]: !visible
+                  })
+                }}>
+                <CloseOutlinedIcon />
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {cardname}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+          
+        </Card>
+      </Box>
+      </>
+    )
+  }
 }
 
 export default AnkiCard;

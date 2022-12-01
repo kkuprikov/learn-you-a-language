@@ -13,16 +13,17 @@ const darkTheme = createTheme({
 
 
 const App = () => {
-  const [suggestedCardNames, setSuggestedCardNames] = useState([]);
+  const [suggestedCards, setSuggestedCards] = useState('');
   const [translation, setTranslation] = useState('');
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Form setSuggestedCardNames={setSuggestedCardNames} 
+      <Form setSuggestedCards={setSuggestedCards} 
             setTranslation={setTranslation} 
        />
       <Result 
-        suggestedCardNames={suggestedCardNames}
+        suggestedCards={suggestedCards}
+        setSuggestedCards={setSuggestedCards}
         translation={translation}
        />
     </ThemeProvider>

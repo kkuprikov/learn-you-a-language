@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 
 const deeplUrl = "https://cb90-202-176-124-205.ngrok.io/v2/translate"
 
-const Form = ({setTranslation, setSuggestedCardNames}) => {
+const Form = ({setTranslation, setSuggestedCards}) => {
   const [currentLocale, setLocale] = useState('th');
   const [userInput, setUserInput] = useState('');
 
@@ -29,7 +29,11 @@ const Form = ({setTranslation, setSuggestedCardNames}) => {
     })
       .then(function (response) {
         setTranslation(response.data.translated_text)
-        setSuggestedCardNames(response.data.card_names)
+        let cards = {}
+        response.data.card_names.map((e) => {
+          cards[e] = true
+        })
+        setSuggestedCards(cards)
         console.log(response);
       })
       .catch(function (response) {
