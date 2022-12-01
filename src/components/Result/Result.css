@@ -1,0 +1,6 @@
+.Result__cards {
+  display:  flex;
+  background-color: #282c34;
+  justify-content:  center;
+  /*align-items:  space-between;*/
+}

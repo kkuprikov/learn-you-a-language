@@ -10,12 +10,16 @@ import TextField from '@mui/material/TextField';
 
 const deeplUrl = "https://cb90-202-176-124-205.ngrok.io/v2/translate"
 
-const Form = ({setResult}) => {
+const Form = ({setTranslation, setSuggestedCardNames}) => {
   const [currentLocale, setLocale] = useState('th');
+  const [userInput, setUserInput] = useState('');
 
   const getTranslation = async (event) => {
+    if (userInput === '') {
+      return
+    }
     let bodyFormData = new FormData();
-    bodyFormData.append('text', 'React POST Request Example')
+    bodyFormData.append('text', userInput)
     bodyFormData.append('target_lang', 'DE')
 
     axios({
@@ -24,7 +28,8 @@ const Form = ({setResult}) => {
       data: bodyFormData,
     })
       .then(function (response) {
-        setResult(response.data)
+        setTranslation(response.data.translated_text)
+        setSuggestedCardNames(response.data.card_names)
         console.log(response);
       })
       .catch(function (response) {
@@ -32,6 +37,10 @@ const Form = ({setResult}) => {
         console.log(response);
       });
   };
+
+  const handleChange = (event) => {
+    setUserInput(event.target.value)
+  }
 
   return (
     <div className="Form">
@@ -56,6 +65,7 @@ const Form = ({setResult}) => {
             rows={10}
             placeholder="Type your text here"
             fullWidth
+            onChange={handleChange}
           />
         </div>
       </FormControl>
