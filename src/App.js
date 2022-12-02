@@ -13,7 +13,7 @@ const darkTheme = createTheme({
 
 
 const App = () => {
-  const [suggestedCards, setSuggestedCards] = useState('');
+  const [suggestedCards, setSuggestedCards] = useState({});
   const [translation, setTranslation] = useState('');
 
   return (

@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-const deeplUrl = "https://cb90-202-176-124-205.ngrok.io/v2/translate"
+const deeplUrl = "https://lively-field-181.fly.dev/v2/translate"
 
 const Form = ({setTranslation, setSuggestedCards}) => {
   const [currentLocale, setLocale] = useState('th');
