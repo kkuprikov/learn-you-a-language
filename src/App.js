@@ -1,9 +1,8 @@
 import './App.css';
 import {useState} from "react";
-import Form from './components/Form.tjs';
+import Form from './components/Form/Form.ts.js';
 import Result from './components/Result/Result.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
 
 const darkTheme = createTheme({
   palette: {

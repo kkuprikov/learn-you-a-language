@@ -26,8 +26,10 @@ function Form({ setTranslation, setSuggestedCards }) {
   }
 
   async function onSubmit() {
+    // @ts-ignore
     const response = await getTranslation(userInputRef?.current?.value, currentLocale);
     if (response) {
+      console.log(response);
       setTranslation(response.data.translated_text);
       let cards = {};
       response.data.card_names.map((e) => {
