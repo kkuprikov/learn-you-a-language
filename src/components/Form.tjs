@@ -1,6 +1,6 @@
 import './Form.css'
 import axios from 'axios';
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,40 +10,31 @@ import TextField from '@mui/material/TextField';
 
 const deeplUrl = "https://lively-field-181.fly.dev/v2/translate"
 
-const Form = ({setTranslation, setSuggestedCards}) => {
-  const [currentLocale, setLocale] = useState('th');
-  const [userInput, setUserInput] = useState('');
+function Form({ setTranslation, setSuggestedCards }) {
+  const [currentLocale, setLocale] = useState('es');
+  const userInputRef = useRef();
 
-  const getTranslation = async (event) => {
-    if (userInput === '') {
-      return
+  async function getTranslation(input, targetLanguage) {
+    if (input === '') {
+      return Promise.resolve();
     }
     let bodyFormData = new FormData();
-    bodyFormData.append('text', userInput)
-    bodyFormData.append('target_lang', 'DE')
+    bodyFormData.append('text', input);
+    bodyFormData.append('target_lang', targetLanguage);
 
-    axios({
-      method: "post",
-      url: deeplUrl,
-      data: bodyFormData,
-    })
-      .then(function (response) {
-        setTranslation(response.data.translated_text)
-        let cards = {}
-        response.data.card_names.map((e) => {
-          cards[e] = true
-        })
-        setSuggestedCards(cards)
-        console.log(response);
-      })
-      .catch(function (response) {
-        //TODO: handle error
-        console.log(response);
+    return axios.post(deeplUrl, bodyFormData);
+  }
+
+  async function onSubmit() {
+    const response = await getTranslation(userInputRef?.current?.value, currentLocale);
+    if (response) {
+      setTranslation(response.data.translated_text);
+      let cards = {};
+      response.data.card_names.map((e) => {
+        cards[e] = true;
       });
-  };
-
-  const handleChange = (event) => {
-    setUserInput(event.target.value)
+      setSuggestedCards(cards);
+    }
   }
 
   return (
@@ -55,28 +46,28 @@ const Form = ({setTranslation, setSuggestedCards}) => {
         <InputLabel>Language</InputLabel>
         <Select
           className="Form__select"
-          value={currentLocale}
           label="Select language"
           style={{ width: 300 }}
+          value={currentLocale}
         >
           <MenuItem value={'th'}>Thai</MenuItem>
           <MenuItem value={'es'}>Spanish</MenuItem>
         </Select>
-        <div style={{width: '500px'}}>
+        <div style={{ width: '500px' }}>
           <TextField
             className="Form__textfield"
             multiline
             rows={10}
             placeholder="Type your text here"
             fullWidth
-            onChange={handleChange}
-          />
+            inputRef={userInputRef} />
         </div>
       </FormControl>
-      <Button 
+      <Button
         variant="contained"
-        onClick={getTranslation}
-       >Process</Button>
+        type="submit"
+        onClick={onSubmit}
+      >Process</Button>
     </div>
   );
 }
