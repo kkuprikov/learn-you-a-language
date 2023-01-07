@@ -1,6 +1,5 @@
 import './Result.css'
-import useState from "react";
-import AnkiCard from "../AnkiCard/AnkiCard";
+import AnkiCard from "./AnkiCard";
 
 
 
