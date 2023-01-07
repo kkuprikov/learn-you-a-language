@@ -1,5 +1,5 @@
 import './Result.css'
-import AnkiCard from "../AnkiCard/AnkiCard";
+import AnkiCard from "./AnkiCard";
 
 
 
